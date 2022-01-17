@@ -1,0 +1,23 @@
+{
+  "name": "investor-scraper",
+  "version": "0.1.0",
+  "description": "Augment Simply Wall St Page with Investor Relations Links",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevgathuku/investor-scraper.git"
+  },
+  "keywords": [
+    "scrape",
+    "serverless"
+  ],
+  "author": "Kevin Gathuku",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kevgathuku/investor-scraper/issues"
+  },
+  "homepage": "https://github.com/kevgathuku/investor-scraper#readme"
+}
