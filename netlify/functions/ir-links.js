@@ -14,8 +14,6 @@ exports.handler = async function (event) {
   const links = await page.evaluate((resultsSelector) => {
     const anchors = Array.from(document.querySelectorAll(resultsSelector));
 
-    console.log("anchors", anchors);
-
     return anchors
       .map((anchor) => {
         const link = anchor.href;
