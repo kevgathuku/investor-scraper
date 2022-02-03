@@ -9,8 +9,6 @@ exports.handler = async function (event) {
   //   Execute Google search for the provided company
   await page.goto(`https://google.com/search?q=${symbol} investor relations`);
 
-  await page.screenshot({ path: "tmp/result.png" });
-
   const resultsSelector = ".g a";
 
   const links = await page.evaluate((resultsSelector) => {
