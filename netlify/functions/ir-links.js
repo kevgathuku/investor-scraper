@@ -27,12 +27,10 @@ exports.handler = async function (event) {
         (link) =>
           !link.startsWith("https://www.google.com/search?q") &&
           !link.startsWith("https://translate.google.com/translate?hl") &&
-          !link.startsWith("https://webcache.googleusercontent.com/search?q")
+          !link.startsWith("https://webcache.googleusercontent.com/search?q") &&
+          !link.startsWith("http://webcache.googleusercontent.com/search?q")
       );
   }, resultsSelector);
-
-  console.log("Links count", links.length);
-  console.log("First result", links[0]);
 
   await browser.close();
 
