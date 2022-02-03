@@ -20,7 +20,7 @@
     "url": "https://github.com/kevgathuku/investor-scraper/issues"
   },
   "homepage": "https://github.com/kevgathuku/investor-scraper#readme",
-  "dependencies": {
-    "puppeteer": "^13.0.1"
+  "devDependencies": {
+    "puppeteer": "^13.1.3"
   }
 }
