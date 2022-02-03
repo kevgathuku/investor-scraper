@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "chrome-aws-lambda": "^10.1.0",
+    "google-search-results-nodejs": "^2.1.0",
     "puppeteer-core": "^13.1.3"
   }
 }
