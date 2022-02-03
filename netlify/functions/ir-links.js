@@ -1,7 +1,12 @@
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-core");
+const chromium = require("chrome-aws-lambda");
 
 exports.handler = async function (event) {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    // Required
+    executablePath: await chromium.executablePath,
+    headless: chromium.headless,
+  });
   const page = await browser.newPage();
 
   const symbol = event.queryStringParameters.symbol;
