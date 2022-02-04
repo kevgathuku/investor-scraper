@@ -20,12 +20,7 @@
     "url": "https://github.com/kevgathuku/investor-scraper/issues"
   },
   "homepage": "https://github.com/kevgathuku/investor-scraper#readme",
-  "devDependencies": {
-    "puppeteer": "^13.1.3"
-  },
   "dependencies": {
-    "chrome-aws-lambda": "^10.1.0",
-    "google-search-results-nodejs": "^2.1.0",
-    "puppeteer-core": "^13.1.3"
+    "google-search-results-nodejs": "^2.1.0"
   }
 }
