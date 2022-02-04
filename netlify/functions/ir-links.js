@@ -1,45 +1,41 @@
-const puppeteer = require("puppeteer-core");
-const chromium = require("chrome-aws-lambda");
+require("dotenv").config();
+
+const SerpApi = require("google-search-results-nodejs");
+const search = new SerpApi.GoogleSearch(process.env.SERP_API_KEY);
+
+function googleSearch(symbol) {
+  // Execute Google search for the provided sybmol / company name
+  return new Promise((resolve, reject) => {
+    search.json(
+      {
+        q: `${symbol} investor relations`,
+      },
+      (result) => {
+        if (result.search_metadata.status === "Success") {
+          resolve(result);
+        } else {
+          reject(new Error(result.search_metadata.status));
+        }
+      }
+    );
+  });
+}
 
 exports.handler = async function (event) {
-  const browser = await puppeteer.launch({
-    // Required
-    executablePath: await chromium.executablePath,
-    headless: chromium.headless,
-  });
-  const page = await browser.newPage();
-
   const symbol = event.queryStringParameters.symbol;
 
-  //   Execute Google search for the provided company
-  await page.goto(`https://google.com/search?q=${symbol} investor relations`);
+  try {
+    const response = await googleSearch(symbol);
+    return {
+      statusCode: 200,
+      body: JSON.stringify(response.organic_results.map(result => result.link)),
+    };
+  } catch (error) {
+    console.log(error);
 
-  const resultsSelector = ".g a";
-
-  const links = await page.evaluate((resultsSelector) => {
-    const anchors = Array.from(document.querySelectorAll(resultsSelector));
-
-    return anchors
-      .map((anchor) => {
-        const link = anchor.href;
-        return link;
-      })
-      .filter(
-        (link) =>
-          !link.startsWith("https://www.google.com/search?q") &&
-          !link.startsWith("https://translate.google.com/translate?hl") &&
-          !link.startsWith("https://webcache.googleusercontent.com/search?q") &&
-          !link.startsWith("http://webcache.googleusercontent.com/search?q")
-      );
-  }, resultsSelector);
-
-  await browser.close();
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      top_result: links[0],
-      all_results: links,
-    }),
-  };
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ msg: error }),
+    };
+  }
 };
